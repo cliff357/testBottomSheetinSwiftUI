@@ -8,14 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var show = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack {
+            HomeView()
+                .onTapGesture {
+                    withAnimation {
+                        show.toggle()
+                    }
+                }
+            
+            if show {
+                Color.black.opacity(0.3).ignoresSafeArea()
+                
+                BottomSheet(show: $show)
+                    .transition(.move(edge: .bottom))
+                    .zIndex(1)
+                
+            }
+            
         }
-        .padding()
+       
+
+        
     }
 }
 
